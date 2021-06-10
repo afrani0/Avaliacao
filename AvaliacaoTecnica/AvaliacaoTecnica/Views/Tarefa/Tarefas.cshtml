@@ -1,0 +1,120 @@
+﻿@model IEnumerable<AvaliacaoTecnica.Models.Pessoa>
+@{
+    ViewData["Title"] = "Tarefas";
+}
+
+<h2>Tarefa 1</h2>
+
+<table style="width:80%; border: 5px solid #ccc; padding:10px;">
+    <caption>Pessoa</caption>
+    <thead>
+        <tr>
+            <th> @Html.DisplayNameFor(model => model.Id)</th>
+            <th> @Html.DisplayNameFor(model => model.Nome)</th>
+            <th> @Html.DisplayNameFor(model => model.Salario)</th>
+            <th> @Html.DisplayNameFor(model => model.DepartamentoId)</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.Id)</td>
+                <td>@Html.DisplayFor(modelItem => item.Nome)</td>
+                <td>@Html.DisplayFor(modelItem => item.Salario)</td>
+                <td>@Html.DisplayFor(modelItem => item.DepartamentoId)</td>
+            </tr>
+
+            <tr></tr>
+        }
+    </tbody>
+</table>
+
+<table style="width:80%; border: 5px solid #ccc; padding:10px;">
+    <caption>Departamento</caption>
+    <thead>
+        <tr>
+            <th> @Html.DisplayName("Id")</th>
+            <th> @Html.DisplayName("Nome")</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in (IQueryable<AvaliacaoTecnica.Models.Departamento>)@ViewBag.Departamento)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.Id)</td>
+                <td>@Html.DisplayFor(modelItem => item.Nome)</td>
+            </tr>
+
+            <tr></tr>
+        }
+    </tbody>
+</table>
+
+<table style="width:80%; border: 5px solid #ccc; padding:10px;">
+    <caption>Resultado</caption>
+
+    <thead>
+        <tr>
+            <th> @Html.DisplayName("Departamento")</th>
+            <th> @Html.DisplayName("Pessoa")</th>
+            <th> @Html.DisplayName("Salário")</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in (List<AvaliacaoTecnica.Models.Pessoa>)@ViewBag.ResultadoTarefa)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.Departamento.Nome)</td>
+                <td>@Html.DisplayFor(modelItem => item.Nome)</td>
+                <td>@Html.DisplayFor(modelItem => item.Salario)</td>
+            </tr>
+
+            <tr></tr>
+        }
+    </tbody>
+</table>
+
+<div class="scriptSql">
+    <p>Script SQL que também resolve a tarefa 1</p>
+    select * from (select max(p.salario) as salario, d.nome
+    as departamento , d.Id
+    from Pessoas p inner join departamentos d
+    on p.DepartamentoID = d.id
+    group by d.nome, d.id) tab
+    inner join
+    pessoas p on p.departamentoId = tab.Id and p.salario = tab.salario
+</div>
+
+<h2>Tarefa 2</h2>
+
+<div class="tabelaArvore">
+    @{var numero = 0; }
+    @foreach (var item in (List<AvaliacaoTecnica.Vo.ArrayArvoreVO>)@ViewBag.ArrayArvore)
+    {
+        
+    <label>Cenário:@(numero += 1)</label><br />
+        <div class="galhoEsquerdo">
+            @foreach (var galhoEsquerdo in item.GalhoEsquerdo)
+            {
+                <p>|</p>
+                <p>@Html.DisplayFor(modelItem => galhoEsquerdo)</p>
+            }
+        </div>
+        <div class="raiz">
+            <label>@Html.DisplayFor(modelItem => item.Raiz)</label>
+        </div>
+        <div class="galhoDireito">
+            @foreach (var galhoDireito in item.GalhoDireito)
+            {
+                <p>|</p>
+                <p>@Html.DisplayFor(modelItem => galhoDireito)</p>
+            }
+        </div>
+
+
+    }
+
+</div>
+
+

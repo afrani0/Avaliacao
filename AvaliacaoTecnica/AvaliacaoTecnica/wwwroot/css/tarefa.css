@@ -1,0 +1,32 @@
+﻿
+
+.tabelaArvore {
+    display:flex
+}
+
+.raiz{
+    padding: 10px
+}
+
+.galhoEsquerdo {
+    padding: 25px;
+    transform: rotate(20deg);
+}
+
+.galhoDireito {
+    padding: 25px;
+    transform: rotate(-20deg);
+}
+
+.scriptSql{
+    background: #ccc;
+    max-width: 60%;
+    margin: 10px;
+    border-radius: 6px;
+    padding:20px;
+}
+
+.scriptSql p 
+{
+    color:black;
+}
